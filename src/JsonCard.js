@@ -7,7 +7,7 @@ class JsonCard extends React.Component {
 
     return (
       <div className="card mb-3">
-        <div className="card-header">{title}</div>
+        <h6 className="card-header">{title}</h6>
         <div className="card-body">
           <pre className="mb-0">{JSON.stringify(data, null, 2)}</pre>
         </div>

@@ -1,5 +1,4 @@
 import React from 'react';
-import JsonCard from './JsonCard';
 import { decode } from './tokenSlice';
 import { connect } from 'react-redux'
 
@@ -14,24 +13,17 @@ class App extends React.Component {
   }
 
   render() {
-    const { token, header, payload } = this.props;
+    const { token } = this.props;
 
     return (
-      <div>
-
-        <div className="form-group">
-          <textarea
-            className="form-control text-monospace"
-            rows="3"
-            placeholder="Enter JWT token here"
-            value={token}
-            onChange={this.handleTokenChanged}
-          />
-        </div>
-
-        <JsonCard title="Header" data={header} />
-        <JsonCard title="Payload" data={payload} />
-
+      <div className="form-group">
+        <textarea
+          className="form-control text-monospace small-text-form-control"
+          rows="3"
+          placeholder="Enter JWT token here"
+          value={token}
+          onChange={this.handleTokenChanged}
+        />
       </div>
     );
   }
@@ -40,8 +32,6 @@ class App extends React.Component {
 
 const mapStateToProps = state => ({
   token: state.token.token,
-  header: state.token.header,
-  payload: state.token.payload,
 });
 
 const mapDispatchToProps = () => ({ decode });
