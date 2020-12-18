@@ -1,32 +1,23 @@
 import React from 'react';
 import JsonCard from './JsonCard';
+import { decode } from './tokenSlice';
+import { connect } from 'react-redux'
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
-    const token = "";
-    this.state = { token };
+    console.log(props);
 
     this.handleTokenChanged = this.handleTokenChanged.bind(this);
   }
 
-  decodeToken(tokenStr) {
-    const tokenParts = tokenStr.split(".").slice(0, -1).map(atob).map(JSON.parse);
-
-    return {
-      header: tokenParts[0],
-      payload: tokenParts[1],
-    }
-  }
-
   handleTokenChanged(event) {
-    const token = event.target.value;
-    this.setState({ token, ...this.decodeToken(token) });
+    this.props.decode(event.target.value);
   }
 
   render() {
-    const { token, header, payload } = this.state;
+    const { token, header, payload } = this.props.token;
 
     return (
       <div>
@@ -53,4 +44,18 @@ class App extends React.Component {
   }
 }
 
-export default App;
+
+const mapStateToProps = state => ({
+  token: state.token
+});
+
+const mapDispatchToProps = () => {
+  return {
+    decode
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps()
+)(App);
