@@ -6,9 +6,6 @@ import { connect } from 'react-redux'
 class App extends React.Component {
   constructor(props) {
     super(props);
-
-    console.log(props);
-
     this.handleTokenChanged = this.handleTokenChanged.bind(this);
   }
 
@@ -17,14 +14,10 @@ class App extends React.Component {
   }
 
   render() {
-    const { token, header, payload } = this.props.token;
+    const { token, header, payload } = this.props;
 
     return (
       <div>
-
-        <nav className="navbar navbar-light bg-light mb-3">
-          <span className="navbar-brand mb-0 h1">MyToken</span>
-        </nav>
 
         <div className="form-group">
           <textarea
@@ -46,16 +39,11 @@ class App extends React.Component {
 
 
 const mapStateToProps = state => ({
-  token: state.token
+  token: state.token.token,
+  header: state.token.header,
+  payload: state.token.payload,
 });
 
-const mapDispatchToProps = () => {
-  return {
-    decode
-  };
-};
+const mapDispatchToProps = () => ({ decode });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps()
-)(App);
+export default connect(mapStateToProps, mapDispatchToProps())(App);
